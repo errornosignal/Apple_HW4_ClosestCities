@@ -8,4 +8,7 @@
 
 import Foundation
 
+//create empty array for City objects
+var citiesList = [City]()
+
 
