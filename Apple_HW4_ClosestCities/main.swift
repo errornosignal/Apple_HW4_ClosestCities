@@ -6,9 +6,11 @@
 //  Copyright © 2017 Reid Nolan. All rights reserved.
 //
 
+//
 import Foundation
 
 //create empty array for City objects
 var citiesList = [City]()
+
 
 

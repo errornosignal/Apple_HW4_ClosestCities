@@ -6,6 +6,7 @@
 //  Copyright © 2017 Reid Nolan. All rights reserved.
 //
 
+//
 import Foundation
 
 //declare and init class constants
