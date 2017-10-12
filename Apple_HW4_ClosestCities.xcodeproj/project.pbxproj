@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3189442A1F8ACC8E006967B0 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318944291F8ACC8E006967B0 /* City.swift */; };
-		3189442C1F8ADBB2006967B0 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3189442B1F8ADBB2006967B0 /* Validator.swift */; };
-		31B18A0A1F83D3770065240F /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B18A091F83D3770065240F /* main.swift */; };
+		3152CC671F8FB4D500012C36 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3152CC621F8FB4D500012C36 /* main.swift */; };
+		3152CC681F8FB4D500012C36 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3152CC631F8FB4D500012C36 /* Validator.swift */; };
+		3152CC691F8FB4D500012C36 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3152CC661F8FB4D500012C36 /* City.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,10 +25,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		318944291F8ACC8E006967B0 /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
-		3189442B1F8ADBB2006967B0 /* Validator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
+		3152CC621F8FB4D500012C36 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		3152CC631F8FB4D500012C36 /* Validator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
+		3152CC641F8FB4D500012C36 /* HW 4.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "HW 4.pdf"; sourceTree = "<group>"; };
+		3152CC651F8FB4D500012C36 /* worldcities.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = worldcities.csv; sourceTree = "<group>"; };
+		3152CC661F8FB4D500012C36 /* City.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
+		3152CC6A1F8FB69400012C36 /* Apple_HW4_ClosestCities */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Apple_HW4_ClosestCities; sourceTree = "<group>"; };
 		31B18A061F83D3770065240F /* Apple_HW4_ClosestCities */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Apple_HW4_ClosestCities; sourceTree = BUILT_PRODUCTS_DIR; };
-		31B18A091F83D3770065240F /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,9 +64,12 @@
 		31B18A081F83D3770065240F /* Apple_HW4_ClosestCities */ = {
 			isa = PBXGroup;
 			children = (
-				31B18A091F83D3770065240F /* main.swift */,
-				318944291F8ACC8E006967B0 /* City.swift */,
-				3189442B1F8ADBB2006967B0 /* Validator.swift */,
+				3152CC6A1F8FB69400012C36 /* Apple_HW4_ClosestCities */,
+				3152CC661F8FB4D500012C36 /* City.swift */,
+				3152CC621F8FB4D500012C36 /* main.swift */,
+				3152CC631F8FB4D500012C36 /* Validator.swift */,
+				3152CC641F8FB4D500012C36 /* HW 4.pdf */,
+				3152CC651F8FB4D500012C36 /* worldcities.csv */,
 			);
 			path = Apple_HW4_ClosestCities;
 			sourceTree = "<group>";
@@ -100,6 +106,7 @@
 				TargetAttributes = {
 					31B18A051F83D3770065240F = {
 						CreatedOnToolsVersion = 9.0;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -126,9 +133,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3189442A1F8ACC8E006967B0 /* City.swift in Sources */,
-				3189442C1F8ADBB2006967B0 /* Validator.swift in Sources */,
-				31B18A0A1F83D3770065240F /* main.swift in Sources */,
+				3152CC681F8FB4D500012C36 /* Validator.swift in Sources */,
+				3152CC671F8FB4D500012C36 /* main.swift in Sources */,
+				3152CC691F8FB4D500012C36 /* City.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,9 +251,13 @@
 		31B18A0E1F83D3770065240F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 35L534RQ7K;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Apple_HW4_ClosestCities/Apple_HW4_ClosestCities-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
@@ -254,9 +265,12 @@
 		31B18A0F1F83D3770065240F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 35L534RQ7K;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Apple_HW4_ClosestCities/Apple_HW4_ClosestCities-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
