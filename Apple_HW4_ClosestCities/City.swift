@@ -15,15 +15,15 @@ let PI = 3.141592655358979323846
 
 class City {
     //declare class vairables
-    var cityNumber: String!
-    var cityName: String!
-    var country: String!
-    var latitude: String!
-    var longitude: String!
-    var matchNumber: String!
+    let cityNumber: String!
+    let cityName: String!
+    let country: String!
+    let latitude: Double
+    let longitude: Double
+    let matchNumber: Int
     
     //init class variables
-    init(cityNumber:String, cityName:String, country:String, latitude:String, longitude:String, matchNumber:String){
+    init(cityNumber:String, cityName:String, country:String, latitude:Double, longitude:Double, matchNumber:Int){
         self.cityNumber = cityNumber
         self.cityName = cityName
         self.country = country
@@ -31,54 +31,54 @@ class City {
         self.longitude = longitude
         self.matchNumber = matchNumber
         }
-    // set/get cityNumber
-    func setCityNumber() -> Void {
-        // add code
-    }
+
     func getCityNumber() -> String {
-        return cityNumber
+        return self.cityNumber
     }
-    
-    // set/get cityName
-    func setCityName() -> Void {
-        // add code
-    }
+
     func getCityName() -> String {
-        return cityName
+        return self.cityName
     }
     
-    // set/get country
-    func setCountry() -> Void {
-        // add code
-    }
     func getCountry() -> String {
-        return country
+        return self.country
+    }
+
+    func getLatitude() -> Double {
+        return self.latitude
     }
     
-    // set/get latitude
-    func setLatitude() -> Void {
-        // add code
-    }
-    func getLatitude() -> String {
-        return latitude
+    func getLongitude() -> Double {
+        return self.longitude
     }
     
-    // set/get longitude
-    func setLongitude() -> Void {
-        // add code
+    func getMatchNumber() -> Int {
+        return self.matchNumber
     }
-    func getLongitude() -> String {
-        return longitude
-    }
-    
-    // set/get matchNumber
-    func setMatchNumber() -> Void {
-        // add code
-    }
-    func getMatchNumber() -> String {
-        return matchNumber
-    }
-    
-    
-    
 }
+    
+////    func setCityNumber() -> Void {
+////
+////        // add code
+////    }
+////
+////    func setCityName() -> Void {
+////        // add code
+////    }
+////
+////    func setCountry() -> Void {
+////        // add code
+////    }
+////
+////    func setLatitude() -> Void {
+////        // add code
+////    }
+////
+////    func setLongitude() -> Void {
+////        // add code
+////    }
+////
+////    func setMatchNumber() -> Void {
+////        // add code
+////    }
+//}

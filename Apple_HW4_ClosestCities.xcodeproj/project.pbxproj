@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		3152CC671F8FB4D500012C36 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3152CC621F8FB4D500012C36 /* main.swift */; };
 		3152CC681F8FB4D500012C36 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3152CC631F8FB4D500012C36 /* Validator.swift */; };
-		3152CC691F8FB4D500012C36 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3152CC661F8FB4D500012C36 /* City.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -29,8 +28,7 @@
 		3152CC631F8FB4D500012C36 /* Validator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
 		3152CC641F8FB4D500012C36 /* HW 4.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "HW 4.pdf"; sourceTree = "<group>"; };
 		3152CC651F8FB4D500012C36 /* worldcities.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = worldcities.csv; sourceTree = "<group>"; };
-		3152CC661F8FB4D500012C36 /* City.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
-		3152CC6A1F8FB69400012C36 /* Apple_HW4_ClosestCities */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Apple_HW4_ClosestCities; sourceTree = "<group>"; };
+		3152CC6A1F8FB69400012C36 /* Apple_HW4_ClosestCities */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Apple_HW4_ClosestCities; sourceTree = "<group>"; };
 		31B18A061F83D3770065240F /* Apple_HW4_ClosestCities */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Apple_HW4_ClosestCities; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -65,7 +63,6 @@
 			isa = PBXGroup;
 			children = (
 				3152CC6A1F8FB69400012C36 /* Apple_HW4_ClosestCities */,
-				3152CC661F8FB4D500012C36 /* City.swift */,
 				3152CC621F8FB4D500012C36 /* main.swift */,
 				3152CC631F8FB4D500012C36 /* Validator.swift */,
 				3152CC641F8FB4D500012C36 /* HW 4.pdf */,
@@ -135,7 +132,6 @@
 			files = (
 				3152CC681F8FB4D500012C36 /* Validator.swift in Sources */,
 				3152CC671F8FB4D500012C36 /* main.swift in Sources */,
-				3152CC691F8FB4D500012C36 /* City.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

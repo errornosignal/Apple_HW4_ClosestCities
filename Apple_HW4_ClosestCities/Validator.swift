@@ -11,60 +11,32 @@ import Foundation
 
 class Validator {
     
-    func validateDoubleInput(prompt: String) -> Double {
+    static func validateDoubleInput(prompt: String) -> Double {
         while(true) {
             print(prompt)
             let inputString = readLine()!
             
             if (NumberFormatter().number(from: inputString)?.doubleValue) != nil {
-               let userInput = Double(inputString)!
-                    return userInput;
+               let inputStringDouble = Double(inputString)!
+                    return inputStringDouble;
             }
             else {
-                print("Error! Input is not a valid double value.")
+                print("Error! Invalid Input. Value must be a double.")
             }
         }
     }
     
-    func validateIntInput(prompt: String) -> Int? {
-        
-        while(true) {
-            print(prompt)
-            let inputString = readLine()!
+    class func validateIntInput(prompt: String) -> Int {
+        while (true) {
+            print(prompt);
+            let inputInt = Int(readLine()!)
             
-            if ((NumberFormatter().number(from: inputString)?.intValue) != nil){
-                _ = Int(inputString)!
-                
-//                if (inputString is Int) {
-//
-//                    let minValue = 1
-//                    let maxValue = 200
-//
-//                    if intInput >= minValue {
-//                        if intInput <= maxValue {
-//                            return intInput;
-//                        }
-//                        else {
-//                            print("Error! Input is above '\(maxValue)' maximum value")
-//                        }
-//                    }
-//                    else {
-//                        print("Error! Input is below '\(minValue)' minimum value.")
-//                    }
-////                }
-//            }
-//
-//            else {
-//                print("Error! Input is not a valid integer value from 1-200.")
-//            }
-//
+            if (inputInt != nil ) {
+                return inputInt!;
             }
+            else {
+                print("Error! Invalid input. Value must be an integer.");
+            }
+        }
     }
-    
-    func isStringAnInt(string: String) -> Bool {
-        return Int(string) != nil
-    }
-
-}
-
 }
