@@ -9,146 +9,190 @@
 import Foundation
 import CoreLocation
 
+//validate user input
 func validateInput(prompt: String) -> String {
     while (true) {
         print(prompt)
-        let userInput = readLine()!.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
+        let userInput = readLine()!
         if(userInput.count > 0) {
-            return userInput;
-        }
-        else {
-            print("Error! Invalid input.")
+            return userInput
+        } else {
+            print("Error! No Input.")
         }
     }
 }
 
-func sortByLocation(base: City, nearest: Bool, amount: Int) -> [City] {
-    var citiesCopy = cities;
-    var results: [City] = [];
+//match cities based on GCD
+func matchCities(selection: City, cities: [City], near: Bool, numToMatch: Int) -> [City2] {
+    var matchArray: [City2] = []
+    let location1 = selection.location
+    var distance: CLLocationDistance = 0
     
-    while (results.count != amount) {
-        var candidate: (index: Int, city: City) = (-1, base);
-        
-        for (index, city) in citiesCopy.enumerated() {
-            if (candidate.city.name != city.name) {
-                // This will initially be zero, so we need an edge case that checks for -1 index and OVERRIDES this value.
-                if (candidate.index == -1) {
-                    candidate = (index, city);
-                } else {
-                    let baseDistance = base.location.distance(from: candidate.city.location);
-                    let candidateDistance = candidate.city.location.distance(from: city.location);
-                    
-                    if (nearest == true && baseDistance > candidateDistance) {
-                        candidate = (index, city);
-                    } else if (nearest == false && baseDistance < candidateDistance) {
-                        candidate = (index, city);
-                    }
-                }
-            } else {
-                citiesCopy.remove(at: index);
-            }
-        }
-        
-        results.append(candidate.city);
-        citiesCopy.remove(at: candidate.index);
+    //iterate through cities, cast to new struct with updated distance info, and append to new array
+    for city in cities {
+        let location2 = city.location
+        distance = location1.distance(from: location2)
+        matchArray.append(City2(name: city.name, country: city.country, location: city.location, distance: distance))
     }
     
-    return results;
+    //sort cities in array by ascending distance from selected city
+    matchArray.sort { $0.distance < $1.distance }
+    //find nearest cities
+    if (near == true) {
+        //remove all but nearest cities from array
+        matchArray.removeSubrange((numToMatch + 1)..<matchArray.count)
+    //find farthest cities
+    } else {
+        //remove all but farthest cities from array
+        matchArray.removeSubrange(1..<(matchArray.count-numToMatch))
+    }
+    return matchArray
 }
 
-func getIndexFromCityName(cityName: String) -> Int {
+//resolve city name to index number in array
+func nameToIndex(cityName: String, cities: [City]) -> Int {
     for (index, city) in cities.enumerated() {
-        if (city.name.lowercased() == cityName.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)) {
-            return index;
-        }
+        if (city.name.lowercased() == cityName) {
+            return index
+        } else {/*doNothing()*/}
     }
-    return -1;
+    return -1
 }
 
+//gets latitude and longitude substring from location property of City
+func getLatLong (city: City) -> String {
+    let tmpStr = String(describing: city.location)
+    let cutoff = tmpStr.index(of: " ")!
+    let latLong = tmpStr.prefix(upTo: cutoff)
+    return String(latLong)
+}
+
+//City struct
 struct City {
     let name: String
     let country: String
-    let location: CLLocation;
+    let location: CLLocation
 }
 
-var cities: [City] = [];
+//City2 struct
+struct City2 {
+    let name: String
+    let country: String
+    let location: CLLocation
+    let distance: CLLocationDistance
+}
 
 //main
-while(true) {
-    var index: Int = 0
+//print program header
+print("Apple_HW4_ClosestCities")
+print("Type 'quit' to exit.\n")
+
+let file = "worldcities.csv" //data file
+let qtyOfCities = 5 //qty of matches to return
+var runCount = 0 //program iteration counter
+
+while (true) {
+    var cities: [City] = []
+    var nearOrFar = false //boolean for searching near or far cities
+    var index = 0
     
-    var nearestInput: Bool = false;
-    
+    //get path for data file, attempt to read, and start splitting rows into city properties
     if let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-        let file = "worldcities.csv";
-        let fileUrl = path.appendingPathComponent(file);
-        
+        let fullPath = path.appendingPathComponent(file)
         do {
-            let contents = try String(contentsOf: fileUrl, encoding: .utf8);
-            var rows = contents.components(separatedBy: "\r\n");
+            let contents = try String(contentsOf: fullPath, encoding: .utf8)
+            var rows = contents.components(separatedBy: "\r\n")
             
-            rows.remove(at: 0);
-            rows.remove(at: rows.count - 1);
+            //eliminate header row
+            rows.remove(at: 0)
+            rows.remove(at: rows.count - 1)
             
-            
+            //parse data in file
             for row in rows {
-                var splitRow = row.components(separatedBy: ",");
+                var splitRow = row.components(separatedBy: ",")
                 if (Double(splitRow[2]) != nil && Double(splitRow[3]) != nil) {
                     cities.append(City(name: splitRow[0].trimmingCharacters(in: .whitespaces),
                                        country: splitRow[1].trimmingCharacters(in: .whitespaces),
-                                       location: CLLocation(latitude: Double(splitRow[2])!, longitude: Double(splitRow[3])!)));
+                                       location: CLLocation(latitude: Double(splitRow[2])!, longitude: Double(splitRow[3])!)))
                 } else {
-                    print("Failed to parse worldcities.csv, this is due to a bad Double conversion from latitude(s) and/or longitude(s) fields.");
-                    exit(0);
+                    //display message on error
+                    let msgStr1 = String(format:"Error processing ~/Documents/%@. Terminating...", file)
+                    print(msgStr1)
+                    exit(1)
                 }
             }
         } catch {
-            print("Failed to open ~/Documents/worldcities.csv");
-            exit(0);
+            //display message on error
+            let msgStr2 = String(format:"Failed to open ~/Documents/%@. Terminating...", file)
+            print(msgStr2)
+            exit(2)
         }
     }
+    
+    //print cities list w/data to console
+    if (runCount == 0) {
+        for (index, city) in cities.enumerated() {
+            let latLong = getLatLong(city: city)
+            //adjust formatting for list
+            if index < 10 {
+                print("  \(index)- \(city.name), \(city.country) - \(latLong)")
+            } else if(index >= 10 && index < 100){
+                print(" \(index)- \(city.name), \(city.country) - \(latLong)")
+            } else {
+                print("\(index)- \(city.name), \(city.country) - \(latLong)")
+            }
+        }
+        runCount += 1 //counter-based 'if' condition keeps application from compounding city list on re-iteration
+        print()
+    } else {/*doNothing*/}
 
-    print("Apple_HW4_ClosestCities")
-    print("Type '0' to exit.")
-    for (index, city) in cities.enumerated() {
-        if index < 10 {
-            print("  \(index)- \(city.name)");
-        } else if(index >= 10 && index < 100){
-            print(" \(index)- \(city.name)");
+    //get user city selection
+    var userInput1Good = false; //boolean for loop
+    while (!userInput1Good) {
+        let inStr1 = validateInput(prompt: "Enter the name or number of the city to search: ")
+        let userInput1 = inStr1.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
+        //process selection
+        if (userInput1 == "quit") {
+            exit(3)
+        } else if (Int(userInput1) != nil && cities.indices.contains(Int(userInput1)!)) {
+            index = Int(userInput1)!
+            userInput1Good = true
+        } else if (nameToIndex(cityName: userInput1, cities: cities) != -1) {
+            index = nameToIndex(cityName: userInput1, cities: cities);
+            userInput1Good = true
         } else {
-            print("\(index)- \(city.name)");
+            print("Error! Invalid name or index.")
         }
     }
 
-    let userInput = validateInput(prompt: "Enter the number of the city to search: ")
-
-    if(Int(userInput) == 0) {
-        exit(1)
-    } else if(Int(userInput) != nil && cities.indices.contains(Int(userInput)!)) {
-        index = Int(userInput)!;
-    } else if (getIndexFromCityName(cityName: userInput) != -1) {
-        index = getIndexFromCityName(cityName: userInput);
-    } else {
-        print("Error! Invalid name or index.");
+    //get user nearest or farthest selection
+    var userInput2Good = false //boolean for loop
+    while (!userInput2Good) {
+        let inStr2 = validateInput(prompt: "Find nearest or farthest?(n/f):")
+        let userInput2 = inStr2.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
+        //process selection
+        if (userInput2 == "quit") {
+            exit(4)
+        } else if (userInput2 == "n") {
+            nearOrFar = true
+            userInput2Good = true;
+        } else if (userInput2 == "f") {
+            nearOrFar = false
+            userInput2Good = true
+        } else {
+            print("Error! Invalid selection.")
+        }
     }
 
-    let userInput2 = validateInput(prompt: "Find five nearest or five farthest(n/f):")
-
-    if (userInput2 == "n") {
-        nearestInput = true;
-    } else if (userInput2 == "f") {
-        nearestInput = false;
-    } else if (Int(userInput) == 0) {
-        exit(2)
-    } else {
-        print("Error! Invalid response.");
+    //print match results to console
+    let selectedCity = cities[index]
+    let matchedCities = matchCities(selection: selectedCity, cities: cities, near: nearOrFar, numToMatch: qtyOfCities)
+    for city in matchedCities {
+        let oneMile = 1609.344 //meters per mile
+        let distanceInMeters = selectedCity.location.distance(from: city.location)
+        //round up two decimal places
+        let distanceInMiles = String(format: "%.2f", ceil((distanceInMeters / oneMile) * 100)/100)
+        print("\(city.name),\(city.country) - \(distanceInMiles)mi")
     }
-
-    let baseCity = cities[index];
-    let nearestCities = sortByLocation(base: baseCity, nearest: nearestInput, amount: 5);
-
-    for city in nearestCities {
-        let distanceMeters = baseCity.location.distance(from: city.location);
-        print("\(city.name),\(city.country)  GCD(meters) \(distanceMeters / 1609.344)");
-    }
+    print()
 }
